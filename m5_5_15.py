@@ -41,13 +41,13 @@ def sanitize_phone_number(phone):
         .replace(")", "")
         .replace("-", "")
         .replace(" ", "")
-        .replace("3", "")
-        .replace("8", "")
+        # .replace("3", "")
+        # .replace("8", "")
     )
     return new_phone
 
 
-def get_phone_numbers_for_countries(new_phone):
+def get_phone_numbers_for_countries(list_phones):
     dict = {}
     UA_list =[]
     JP_list =[]
@@ -55,25 +55,23 @@ def get_phone_numbers_for_countries(new_phone):
     SG_list =[]
     start = 0
     end = 3
-    for number in new_phone:
-        if number.find("0", start, end)>=0:
-            UA_list.append(number)
-            continue
-        if number.find("81", start, end)>=0:
+    for number in list_phones:
+        number = sanitize_phone_number(number)
+        if number.find("81", start, end)==0:
             JP_list.append(number)
-            # continue
-        if number.find('886', start, end)>=0:
+            continue
+        if number.find('886', start, end)==0:
             TW_list.append(number)
-            # continue
-        if number.find('65', start, end)>=0:
+            continue
+        if number.find('65', start, end)==0:
             SG_list.append(number)
-            # continue
-        # else:
-            # UA_list.append(number)
-            # continue
-        dict = {'UA':UA_list, 'JP':JP_list, 'TW':TW_list, 'SG':SG_list}
-    return dict 
+            continue
+        else:
+            UA_list.append(number)
+    dict = {'UA':UA_list, 'JP':JP_list, 'TW':TW_list, 'SG':SG_list}
+    return dict  
  
-print(get_phone_numbers_for_countries(['0658759411', '818765347', '818765344', '8867658976', '657658976']))
 
+
+print(get_phone_numbers_for_countries(['065-875-94-11', '(81)8765347', '8867658976', '657658976', '(65)765-89-77']))
 
