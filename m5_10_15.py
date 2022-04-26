@@ -29,21 +29,35 @@ string — строка, переданная в функцию
 
 import re
 
+# def find_word(text, word):
+#     dict = {}
+#     patern = fr"{word}"
+#     if re.search(patern, text):
+#          dict.get('result', 'True')
+         
+#          dict.get('first_index', 'span'[0], 'last_index', 'span'[1])
+#          search_string = text.strint
+#          dict.get('search_string', search_string)
+#          string = string.group()
+#          dict.get('string', string)
+#     else:
+#          dict.get('result', False)
+#          dict.get('first_index', None, 'last_index', None)
+#          dict.get('search_string', word)
+#          dict.get('string', text)
+#     return dict
+
 def find_word(text, word):
-    dict = {}
-    word = word.lower
-    patern = rf"{word}"
-    if re.search(patern, text):
-         dict.get('result': 'True')
-         span = text.span()
-         dict.get('first_index': 'span'[0], 'last_index': 'span'[1])
-         search_string = text.strint
-         dict.get('search_string': search_string)
-         string = string.group()
-         dict.get('string': string)
-    else:
-         dict.get('result': False)
-         dict.get('first_index': None, 'last_index': None)
-         dict.get('search_string': word)
-         dict.get('string': string)
-    return dict
+    dct = {
+    'result': False,
+    'first_index': None,
+    'last_index': None,
+    'search_string': word,
+    'string': text
+    }
+    result = re.search(word, text)
+    if result:
+        dct['result'] = True
+        dct['first_index'] = result.start()
+        dct['last_index'] = result.end()
+    return dct
