@@ -24,4 +24,14 @@ students = {"Nick": "A", "Olga": "B", "Mike": "FX", "Anna": "C"}
 
 
 def formatted_grades(students):
-    
+    count = 1
+    result = []
+    for key, value in students.items():
+      if key and value:
+        result.append('{:>4}|{:<10}|{:^5}|{:^5}'.format(
+            count,  key,  value, grades.get(value)))
+        count += 1
+    return result
+
+
+print(formatted_grades(students))
