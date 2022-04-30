@@ -22,13 +22,11 @@ Alex Denver,30
 Drake Mikelsson,19'''
 
 import pathlib
-
 def write_employees_to_file(employee_list, path):
-    global_employee_list = open('path', 'w')
+    fh = open(path, 'w')
     for i in employee_list:
-        global_employee_list.write(i)
-        global_employee_list.write('\n')
-    global_employee_list.close()
-
+        for j in i:
+         fh.write(j + '\n')
+    fh.close()
 
 
