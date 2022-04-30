@@ -21,20 +21,14 @@ Robert Stivenson,28
 Alex Denver,30
 Drake Mikelsson,19'''
 
-
+import pathlib
 
 def write_employees_to_file(employee_list, path):
-    global_employee_list = open('global_employee_list.txt', 'w')
-    tmp_list = employee_list
-    tmp_list.split(',')
+    global_employee_list = open('path', 'w')
     for i in employee_list:
-     global_employee_list.write('i')
-     global_employee_list.write('\n')
+        global_employee_list.write(i)
+        global_employee_list.write('\n')
     global_employee_list.close()
 
 
-
-
-employee_list = [['Robert Stivenson,28', 'Alex Denver,30'],['Drake Mikelsson,19']]
-print(write_employees_to_file(employee_list, 'global_employee_list.txt'))
 
