@@ -29,4 +29,4 @@ def write_employees_to_file(employee_list, path):
          fh.write(j + '\n')
     fh.close()
 
-
+write_employees_to_file([['Robert Stivenson,28', 'Alex Denver,30'],['Drake Mikelsson,19']], 'test.txt')
