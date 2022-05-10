@@ -4,7 +4,7 @@
 Функция do_setup(args_dict, requiers) должна вызывать функцию setup с параметрами из словаря args_dict
  и параметром install_requires, который принимает значение requiers'''
 
- from setuptools import setup
+from setuptools import setup
 
 
 def do_setup(args_dict, requires):

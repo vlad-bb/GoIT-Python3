@@ -1,8 +1,8 @@
 from pathlib import Path, PurePath
 import shutil
 import sys
-import clean_folder.file_parser as parser
-from clean_folder.normalize import normalize
+import file_parser as parser
+from normalize import normalize
 
 
 def handle_media(filename: Path, target_folder: Path):
