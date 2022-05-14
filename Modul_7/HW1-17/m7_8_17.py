@@ -34,7 +34,6 @@ def token_parser(s):
                 token_list.append(i)
     if n != '':
       token_list.append(n)
-
     return token_list
 
 # def token_parser(s):
