@@ -27,6 +27,14 @@ users = [
 
 
 def get_birthdays_per_week(users):
+    weekday = {
+        'Monday': '',
+        'Tuesday': '',
+        'Wednesday': '',
+        'Thursday': '',
+        'Friday': '',
+        'Next Monday': ''
+        }
     start = datetime.now().date()
     end = start + timedelta(days=7)
     for i in users:
@@ -35,19 +43,33 @@ def get_birthdays_per_week(users):
         if start <= date_b.date() <= end:
             day = date_b.weekday()
             if day == 0:
-                print("Monday: " + i["name"])
+                weekday['Monday'] += i['name']
+                weekday['Monday'] += ', '
             if day == 1:
-                print("Tuesday: ", +i["name"])
+                weekday['Tuesday'] += i['name']
+                weekday['Tuesday'] += ', '
             if day == 2:
-                print("Wednesday: " + i["name"])
+                weekday['Wednesday'] += i['name']
+                weekday['Wednesday'] += ', '
             if day == 3:
-                print("Thursday: " + i["name"])
+                weekday['Thursday'] += i['name']
+                weekday['Thursday'] += ', '
             if day == 4:
-                print("Friday: " + i["name"])
+                weekday['Friday'] += i['name']
+                weekday['Friday'] += ', '
             if day in (5, 6):
-                print('Next Monday: ' + i['name'])
-            if day not in (0, 1, 2, 3, 4, 5, 6):
-                print("No birthday in this week")
+                weekday['Next Monday'] += i['name']
+                weekday['Next Monday'] += ', '
+
+    for k, v in weekday.items():
+        count = 0
+        if len(v) > 0:
+            print(k + ': ' + v[:-2])
+        else:
+            count += 1
+    if count > 0:
+        print("No birthday in this week")
+
 
 
 get_birthdays_per_week(users)
