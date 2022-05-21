@@ -23,6 +23,7 @@ participants = {
 Например: вызов get_random_winners(2, participants) случайно может вернуть список как:
 ['60577ce4b536f8259cc225d2', '605b89080c318d66862db390'] '''
 
+
 import random
 
 

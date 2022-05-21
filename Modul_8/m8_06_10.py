@@ -6,6 +6,8 @@ number_list — список чисел
 Пример:
 вызов функции decimal_average([3, 5, 77, 23, 0.57], 6) вернет 21.714
 вызов функции decimal_average([31, 55, 177, 2300, 1.57], 9) вернет 512.91400 '''
+
+
 from decimal import Decimal, getcontext
 
 

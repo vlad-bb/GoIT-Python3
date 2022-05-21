@@ -19,6 +19,8 @@
 Для определения типа параметра cats используйте функцию isinstance. '''
 
 
+
+
 import collections
 
 Cat = collections.namedtuple("Cat", ["nickname", "age", "owner"])

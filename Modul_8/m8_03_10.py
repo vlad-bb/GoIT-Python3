@@ -3,6 +3,8 @@
  "Thursday 27 May 2021" — день недели, число, месяц и год.
  Преобразованное значение функция должна вернуть при вызове. '''
 
+
+
 from datetime import datetime
 
 def get_str_date(date):

@@ -10,6 +10,7 @@
 Функция push добавляет значение element в начало списка lifo.
 Функция pop достает и возвращает первое значение из списка lifo. '''
 
+
 from collections import deque
 
 MAX_LEN = 10

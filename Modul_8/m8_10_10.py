@@ -10,6 +10,8 @@
  Функция push добавляет значение element в конец списка fifo.
   Функция pop достает и возвращает первое значение из списка fifo. '''
 
+
+
 from collections import deque
 
 MAX_LEN = 10
