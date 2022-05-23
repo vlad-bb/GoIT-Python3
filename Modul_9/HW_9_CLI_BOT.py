@@ -42,8 +42,10 @@ CLI достаточно просто реализовать. Любой CLI с�
 Логика команд реализована в отдельных функциях и эти функции принимают на вход одну или несколько строк и возвращают строку.
 Вся логика взаимодействия с пользователем реализована в функции main, все print и input происходят только там. '''
 import re
+from time import sleep
 
-
+DB = {}
+list_command = []
 def greeting():
     return "How can I help you?"
 
@@ -61,16 +63,18 @@ def exiting2():
 
 
 def adding():
-    DB.update(list[1], list[2])
+    DB.update({list_command[1]: list_command[2]})
+    with open('dbase.txt', 'a') as w:
+        w.writelines(DB)
 
 
 COMMANDS = {greeting: "hello", exiting: "good bye", exiting1: "close", exiting2: "exit", adding: 'add'}
-DB = {}
-list = []
+
+
 
 def main():
     while True:
-        user_in = input(">>>")
+        user_in = input(">>> ")
         if user_in == '.':
             break
         user_input = user_in.lower()
@@ -78,11 +82,18 @@ def main():
             if v == user_input:
                 print(k())
             else:
-                user_input.split(' ')
-                list.append(user_input)
-                if list[0] == v:
+                lst = user_input.split(' ')
+                if lst[0] == 'add':
+                    list_command.extend(lst)
+                    print(list_command)
+                    print(DB)
                     adding()
+                    sleep(2)
+                    list_command.clear()
+                    print(list_command)
+                    print(DB)
 
 
 if __name__ == "__main__":
     main()
+
