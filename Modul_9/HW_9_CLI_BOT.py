@@ -55,10 +55,8 @@ def greeting():
 def exiting():
     return "Good bye!"
 
-
 def exiting1():
     return "Good bye!"
-
 
 def exiting2():
     return "Good bye!"
@@ -66,25 +64,35 @@ def exiting2():
 
 def adding():
     DB.update({list_command[1]: list_command[2]})
-    with open('dbase.txt', 'a') as w:
-        w.writelines(list_command[1].title() + ': ' + list_command[2] + '\n')
-        return print("You add new contact"), print(DB)
+    return "You add new contact"
 
 
 def changing():
     for k in DB.keys():
         if k == list_command[1]:
-            # DB.update({k: list_command[2]})
             DB[k] = list_command[2]
-        return print(f"Contact {list_command[1]} was changed"), print(DB), print(list_command)
+    return f"Contact {list_command[1].title()} was changed"
+
+def get_phone():
+    result = DB.get(list_command[1])
+    return f'Contact find {list_command[1].title()} {result}'
+
+def get_contacts():
+    cont_list = []
+    for k, v in DB.items():
+        _ = k.title() + ' ' + str(v)
+        cont_list.append(_)
+        stroka = ('\n').join(cont_list)
+    return f'Contacts list:\n{stroka}'
 
 
 COMMANDS = {greeting: "hello", exiting: "good bye", exiting1: "close", exiting2: "exit", adding: 'add',
-            changing: 'change'}
+            changing: 'change', get_phone: 'phone', get_contacts: 'show all'}
 
 
 def main():
-    while True:
+    flag = True
+    while flag:
         user_in = input(">>> ")
         if user_in == '.':
             break
@@ -92,18 +100,22 @@ def main():
         for k, v in COMMANDS.items():
             if v == user_input:
                 print(k())
-
+            if user_input in ['good bye', 'exit', 'close']:
+                flag = False
         lst = user_input.split(' ')
         if lst[0] == 'add':
             list_command.extend(lst)
-            adding()
+            print(adding())
             list_command.clear()
         if lst[0] == 'change':
-            print(lst)
             list_command.extend(lst)
-
-            changing()
+            print(changing())
             list_command.clear()
+        if lst[0] == 'phone':
+            list_command.extend(lst)
+            print(get_phone(), end='\n')
+            list_command.clear()
+
 
 
 if __name__ == "__main__":
