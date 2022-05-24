@@ -41,11 +41,21 @@ CLI достаточно просто реализовать. Любой CLI с�
  и возвращать соответствующий ответ пользователю.
 Логика команд реализована в отдельных функциях и эти функции принимают на вход одну или несколько строк и возвращают строку.
 Вся логика взаимодействия с пользователем реализована в функции main, все print и input происходят только там. '''
-import re
-from time import sleep
 
 DB = {}
 list_command = []
+
+def input_error(func):
+    def wrapper():
+        try:
+            return func()
+        except IndexError:
+            return "This command 'add' please write 'add' 'name' 'number'"
+        except KeyError:
+            return "This command 'phone' please write 'phone' 'name'"
+        except ValueError:
+            return "This command 'change' please write 'change' 'name' 'number'"
+    return wrapper
 
 
 def greeting():
@@ -61,19 +71,25 @@ def exiting1():
 def exiting2():
     return "Good bye!"
 
-
+@input_error
 def adding():
+    if len(list_command) > 3:
+        raise IndexError
     DB.update({list_command[1]: list_command[2]})
     return "You add new contact"
 
-
+@input_error
 def changing():
+    if len(list_command) > 3:
+        raise ValueError
     for k in DB.keys():
         if k == list_command[1]:
             DB[k] = list_command[2]
     return f"Contact {list_command[1].title()} was changed"
-
+@input_error
 def get_phone():
+    if not 1 < len(list_command) < 3:
+        raise KeyError
     result = DB.get(list_command[1])
     return f'Contact find {list_command[1].title()} {result}'
 
@@ -86,8 +102,7 @@ def get_contacts():
     return f'Contacts list:\n{stroka}'
 
 
-COMMANDS = {greeting: "hello", exiting: "good bye", exiting1: "close", exiting2: "exit", adding: 'add',
-            changing: 'change', get_phone: 'phone', get_contacts: 'show all'}
+COMMANDS = {greeting: "hello", exiting: "good bye", exiting1: "close", exiting2: "exit", get_contacts: 'show all'}
 
 
 def main():
@@ -98,7 +113,7 @@ def main():
             break
         user_input = user_in.lower()
         for k, v in COMMANDS.items():
-            if v == user_input:
+            if user_input.startswith(v):
                 print(k())
             if user_input in ['good bye', 'exit', 'close']:
                 flag = False
@@ -115,7 +130,6 @@ def main():
             list_command.extend(lst)
             print(get_phone(), end='\n')
             list_command.clear()
-
 
 
 if __name__ == "__main__":
