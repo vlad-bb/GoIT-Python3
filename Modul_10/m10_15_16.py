@@ -20,6 +20,7 @@ def add_contacts(self, name, phone, email, favorite):
 
 def get_contact_by_id(self, id):
     for contact in self.contacts:
-        if contact["id"] == id:
-            return contact
-        return None
+        for k in contact.keys():
+            if contact[k] == id:
+                return contact
+
