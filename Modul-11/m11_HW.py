@@ -94,7 +94,7 @@ class Record:
         if self.birthday:
             start = date.today()
             birthday_date = datetime.strptime(str(self.birthday), '%d.%m.%Y')
-            end = datetime(year=start.year, month=birthday_date.month, day=birthday_date.day)
+            end = date(year=start.year, month=birthday_date.month, day=birthday_date.day)
             count_days = (end - start).days
             if count_days < 0:
                 count_days += 365
@@ -131,11 +131,15 @@ def greeting(*args):
 def add(contacts, *args):
     name = Name(args[0])
     phone = Phone(args[1])
+    try:
+        birthday = Birthday(args[2])
+    except IndexError:
+        birthday = None
     if name.value in contacts:
         contacts[name.value].add_phone(phone)
         return f'Add phone {phone} to user {name}'
     else:
-        contacts[name.value] = Record(name, [phone])
+        contacts[name.value] = Record(name, [phone], birthday)
         return f'Add user {name} with phone number {phone}'
 
 
@@ -197,13 +201,13 @@ def helping(*args):
     phone name -> show the user's phone number;
     show all -> show data of all users;
     birthday name -> show how many days to birthday of user;
-    show_birthday_30_days -> show users with birthday in 30 days;
+    user birthday -> show users with birthday in 30 days;
     good bye or close or exit or . - exit the program"""
 
 
 COMMANDS = {greeting: ['hello'], add: ['add '], change: ['change '], phone: ['phone '],
             helping: ['?', 'help'], show_all: ['show all'], exiting: ['good bye', 'close', 'exit', '.'],
-            del_phone: ['del '], birthday: ['birthday ']}
+            del_phone: ['del '], birthday: ['birthday '], show_birthday_30_days: ['user birthday']}
 
 
 def command_parser(user_command: str) -> (str, list):
