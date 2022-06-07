@@ -104,15 +104,26 @@ class Record:
 
 
 class AddressBook(UserDict):
+    def __init__(self):
+        super().__init__()
+        self.n = None
+
     def add_record(self, record: Record) -> None:
         self.data[record.name.value] = record
 
-    def __next__(self):
-
-
-    def iterator(self, n=2):
-
-
+    def iterator(self, n=2, days=0):
+        self.n = n
+        index = 1
+        print_block = '-' * 50 + '\n'
+        for record in self.data.values():
+            if days == 0 or (record.birthday.value is not None and record.days_to_birthday(record.birthday) <= days):
+                print_block += str(record) + '\n'
+                if index < n:
+                    index += 1
+                else:
+                    yield print_block
+                    index, print_block = 1, '-' * 50 + '\n'
+        yield print_block
 
 class InputError:
     def __init__(self, func) -> None:
@@ -171,9 +182,12 @@ def del_phone(contacts, *args):
 
 
 def show_all(contacts, *args):
-    result = 'List of all users:'
-    for key in contacts:
-        result += f'\n{contacts[key]}'
+    if not contacts:
+        return 'Address book is empty'
+    result = 'List of all users:\n'
+    print_list = contacts.iterator()
+    for item in print_list:
+        result += f'{item}'
     return result
 
 
