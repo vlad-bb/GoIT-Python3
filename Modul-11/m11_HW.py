@@ -11,7 +11,7 @@
 AddressBook реализует метод iterator, который возвращает генератор по записям AddressBook и за одну итерацию возвращает
  представление для N записей.
 + Класс Record принимает ещё один дополнительный (опциональный) аргумент класса Birthday
-Класс Record реализует метод days_to_birthday, который возвращает количество дней до следующего дня рождения контакта,
++ Класс Record реализует метод days_to_birthday, который возвращает количество дней до следующего дня рождения контакта,
  если день рождения задан.
 + setter и getter логику для атрибутов value наследников Field.
 + Проверку на корректность веденного номера телефона в setter для value класса Phone.
@@ -107,6 +107,12 @@ class AddressBook(UserDict):
     def add_record(self, record: Record) -> None:
         self.data[record.name.value] = record
 
+    def __next__(self):
+
+
+    def iterator(self, n=2):
+
+
 
 class InputError:
     def __init__(self, func) -> None:
@@ -170,10 +176,12 @@ def show_all(contacts, *args):
         result += f'\n{contacts[key]}'
     return result
 
+
 def birthday(contacts, *args):
     if args:
         name = args[0]
         return f'{contacts[name].birthday}'
+
 
 def show_birthday_30_days(contacts, *args):
     result = 'List of users with birthday in 30 days:'
